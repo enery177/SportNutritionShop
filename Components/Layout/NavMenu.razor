@@ -1,0 +1,55 @@
+﻿@using SportNutritionShop.Services
+@inject ICartService CartService
+@implements IDisposable
+@rendermode InteractiveServer
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">SportNutritionShop</a>
+    </div>
+</div>
+
+<div class="nav-scrollable">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <a class="nav-link" href="">
+                <span class="bi bi-house-door-nav-menu" aria-hidden="true"></span> Главная
+            </a>
+        </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link" href="catalog">
+                <span class="bi bi-house-door-nav-menu" aria-hidden="true"></span> Каталог
+            </a>
+        </div>
+
+        <div class="nav-item px-3">
+            <a class="nav-link" href="cart">
+                <span class="bi bi-plus-square-nav-menu" aria-hidden="true"></span> Корзина
+                @if (CartService.GetItemsCount() > 0)
+                {
+                    <span class="badge bg-primary ms-2">@CartService.GetItemsCount()</span>
+                }
+            </a>
+        </div>
+    </nav>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Подписываемся на изменения в корзине, чтобы счётчик обновлялся мгновенно
+        CartService.OnChange += OnCartChanged;
+    }
+
+    private async void OnCartChanged()
+    {
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        // Обязательно отписываемся при уничтожении компонента, чтобы не было утечек памяти
+        CartService.OnChange -= OnCartChanged;
+    }
+}

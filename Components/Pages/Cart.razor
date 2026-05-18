@@ -1,0 +1,110 @@
+﻿@page "/cart"
+@using SportNutritionShop.Services
+@inject ICartService CartService
+@implements IDisposable
+@rendermode InteractiveServer
+
+<div class="container mt-4">
+    <h2>Ваша корзина</h2>
+
+    @if (cartItems == null || !cartItems.Any())
+    {
+        <div class="alert alert-warning mt-3">Ваша корзина пока пуста. Загляните в каталог!</div>
+        <a href="/" class="btn btn-primary">Вернуться к каталогу</a>
+    }
+    else
+    {
+        <div class="table-responsive mt-3">
+            <table class="table table-bordered align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Товар</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Итого</th>
+                        <th>Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in cartItems)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@item.Product.ImageUrl" alt="@item.Product.Name" style="width: 50px; height: 50px; object-fit: cover; margin-right: 15px;" />
+                                    <span>@item.Product.Name</span>
+                                </div>
+                            </td>
+                            <td>@item.Product.Price.ToString("0.00 ₽")</td>
+                            <td>
+                                <div class="input-group" style="max-width: 120px;">
+                                    <button class="btn btn-outline-secondary btn-sm" @onclick="() => UpdateQuantity(item.Product.Id, item.Quantity - 1)">-</button>
+                                    <input type="text" class="form-control text-center form-control-sm" value="@item.Quantity" readonly />
+                                    <button class="btn btn-outline-secondary btn-sm" @onclick="() => UpdateQuantity(item.Product.Id, item.Quantity + 1)">+</button>
+                                </div>
+                            </td>
+                            <td class="fw-bold">@((item.Product.Price * item.Quantity).ToString("0.00 ₽"))</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" @onclick="() => RemoveItem(item.Product.Id)">Удалить</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4 p-3 bg-light rounded">
+            <h4>Общая стоимость: <span class="text-primary">@totalAmount.ToString("0.00 ₽")</span></h4>
+            <div>
+                <button class="btn btn-outline-danger me-2" @onclick="ClearCart">Очистить корзину</button>
+                <a href="/checkout" class="btn btn-success">Оформить заказ</a>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<CartItem> cartItems = new();
+    private decimal totalAmount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CartService.OnChange += RefreshCartData;
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        cartItems = await CartService.GetCartItemsAsync();
+        totalAmount = await CartService.GetTotalAmountAsync();
+    }
+
+    private async void RefreshCartData()
+    {
+        await InvokeAsync(async () =>
+        {
+            await LoadData();
+            StateHasChanged();
+        });
+    }
+
+    private async Task UpdateQuantity(int productId, int newQuantity)
+    {
+        await CartService.UpdateQuantityAsync(productId, newQuantity);
+    }
+
+    private async Task RemoveItem(int productId)
+    {
+        await CartService.RemoveFromCartAsync(productId);
+    }
+
+    private async Task ClearCart()
+    {
+        await CartService.ClearCartAsync();
+    }
+
+    public void Dispose()
+    {
+        CartService.OnChange -= RefreshCartData;
+    }
+}

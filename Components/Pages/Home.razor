@@ -1,0 +1,66 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<div class="welcome-container d-flex align-items-center justify-content-center">
+    <div class="text-center p-5 welcome-card animate-fade-in">
+        <div class="display-1 mb-4 text-primary">💪</div>
+
+        <h1 class="display-4 fw-bold mb-3 text-dark">Добро пожаловать в SportNutritionShop!</h1>
+
+        <p class="lead text-muted mb-5 max-width-600 mx-auto">
+            Твой путеводитель в мире качественного спортивного питания.
+            Протеины, витамины и аксессуары для достижения твоих максимальных результатов.
+            Тренируйся для себя, становись лучше каждый день!
+        </p>
+
+        <a href="/catalog" class="btn btn-primary btn-lg px-5 py-3 fw-bold shadow-sm start-shopping-btn">
+            Перейти в каталог 🚀
+        </a>
+    </div>
+</div>
+
+<style>
+    .welcome-container {
+        min-height: 80vh;
+        background: radial-gradient(circle at top right, rgba(13, 110, 253, 0.05), transparent);
+    }
+
+    .welcome-card {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        max-width: 800px;
+    }
+
+    .max-width-600 {
+        max-width: 600px;
+    }
+
+    .start-shopping-btn {
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+
+        .start-shopping-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3) !important;
+        }
+
+    /* Легкая анимация появления */
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
