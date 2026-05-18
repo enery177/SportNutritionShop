@@ -1,0 +1,20 @@
+﻿version: '3.8'
+
+services:
+  sportnutritionshop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "7003:7003"
+    volumes:
+      # Сохраняем БД между перезапусками контейнера
+      - sqlite_data:/data
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Data Source=/data/sportshop.db
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:
+    driver: local
