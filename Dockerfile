@@ -2,11 +2,9 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-#  опируем csproj и восстанавливаем зависимости
 COPY ["SportNutritionShop.csproj", "./"]
 RUN dotnet restore "SportNutritionShop.csproj"
 
-#  опируем весь исходный код и собираем
 COPY . .
 RUN dotnet build "SportNutritionShop.csproj" -c Release -o /app/build
 
@@ -19,19 +17,12 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# явно открываем порт 7003 внутри контейнера
-EXPOSE 7003
+EXPOSE 8080
 
-# ѕеременные окружени€: заставл€ем .NET слушать именно 7003
-ENV ASPNETCORE_URLS=http://+:7003
 ENV ConnectionStrings__DefaultConnection="Data Source=/data/sportshop.db"
 
-# ѕереключаемс€ на root, чтобы создать папку с правами дл€ пользовател€ app
 USER root
 RUN mkdir -p /data && chown -R app:app /data
 
-# ¬озвращаемс€ на безопасного пользовател€ app
 USER app
-
-# «апуск приложени€
 ENTRYPOINT ["dotnet", "SportNutritionShop.dll"]
