@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SportNutritionShop.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class InitialCreateWithSixProducts : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -129,9 +129,12 @@ namespace SportNutritionShop.Migrations
                 columns: new[] { "Id", "CategoryId", "Description", "ImageUrl", "Name", "Price" },
                 values: new object[,]
                 {
-                    { 1, 1, "Сывороточный протеин", "https://placehold.co/300x200/2563eb/ffffff?text=Whey", "Whey Gold Standard", 2499m },
-                    { 2, 2, "Рыбий жир высокой концентрации", "https://placehold.co/300x200/10b981/ffffff?text=Omega", "Omega-3 Premium", 890m },
-                    { 3, 3, "Пластиковый шейкер с мерной сеткой", "https://placehold.co/300x200/f59e0b/ffffff?text=Shaker", "Шейкер Pro 500ml", 450m }
+                    { 1, 1, "Сывороточный протеин премиум-качества для эффективного роста мышц.", "https://placehold.co/300x200/2563eb/ffffff?text=Whey", "Whey Gold Standard", 2499.00m },
+                    { 2, 2, "Рыбий жир высокой концентрации для поддержки сердца, сосудов и суставов.", "https://placehold.co/300x200/10b981/ffffff?text=Omega", "Omega-3 Premium", 890.00m },
+                    { 3, 3, "Пластиковый шейкер с мерной сеткой для быстрого смешивания коктейлей.", "https://placehold.co/300x200/f59e0b/ffffff?text=Shaker", "Шейкер Pro 500ml", 450.00m },
+                    { 4, 1, "Изолят сывороточного белка с высокой степенью очистки, без сахара и лактозы.", "https://placehold.co/300x200/2563eb/ffffff?text=Isolate", "Whey Isolate Premium", 2890.00m },
+                    { 5, 2, "Усиленная формула Омега-3 с повышенным содержанием активных кислот EPA и DHA.", "https://placehold.co/300x200/10b981/ffffff?text=Omega+Ultra", "Omega-3 Ultra Concentrate", 1350.00m },
+                    { 6, 3, "Трехкомпонентный шейкер с дополнительными контейнерами под капсулы и порошок.", "https://placehold.co/300x200/f59e0b/ffffff?text=Smart+Shaker", "Smartshaker 3-в-1 600ml", 650.00m }
                 });
 
             migrationBuilder.CreateIndex(

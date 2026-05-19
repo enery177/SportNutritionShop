@@ -160,28 +160,55 @@ namespace SportNutritionShop.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            Description = "Сывороточный протеин",
+                            Description = "Сывороточный протеин премиум-качества для эффективного роста мышц.",
                             ImageUrl = "https://placehold.co/300x200/2563eb/ffffff?text=Whey",
                             Name = "Whey Gold Standard",
-                            Price = 2499m
+                            Price = 2499.00m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 1,
+                            Description = "Изолят сывороточного белка с высокой степенью очистки, без сахара и лактозы.",
+                            ImageUrl = "https://placehold.co/300x200/2563eb/ffffff?text=Isolate",
+                            Name = "Whey Isolate Premium",
+                            Price = 2890.00m
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
-                            Description = "Рыбий жир высокой концентрации",
+                            Description = "Рыбий жир высокой концентрации для поддержки сердца, сосудов и суставов.",
                             ImageUrl = "https://placehold.co/300x200/10b981/ffffff?text=Omega",
                             Name = "Omega-3 Premium",
-                            Price = 890m
+                            Price = 890.00m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            Description = "Усиленная формула Омега-3 с повышенным содержанием активных кислот EPA и DHA.",
+                            ImageUrl = "https://placehold.co/300x200/10b981/ffffff?text=Omega+Ultra",
+                            Name = "Omega-3 Ultra Concentrate",
+                            Price = 1350.00m
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 3,
-                            Description = "Пластиковый шейкер с мерной сеткой",
+                            Description = "Пластиковый шейкер с мерной сеткой для быстрого смешивания коктейлей.",
                             ImageUrl = "https://placehold.co/300x200/f59e0b/ffffff?text=Shaker",
                             Name = "Шейкер Pro 500ml",
-                            Price = 450m
+                            Price = 450.00m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 3,
+                            Description = "Трехкомпонентный шейкер с дополнительными контейнерами под капсулы и порошок.",
+                            ImageUrl = "https://placehold.co/300x200/f59e0b/ffffff?text=Smart+Shaker",
+                            Name = "Smartshaker 3-в-1 600ml",
+                            Price = 650.00m
                         });
                 });
 
